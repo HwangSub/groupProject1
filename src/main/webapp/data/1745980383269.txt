@@ -1,0 +1,21 @@
+https://github.com/HwangSub/jsp_study1
+
+create sequence member_seq
+start with 1
+increment by 1
+maxvalue 999999;
+
+create table member (
+ unq number not null primary key,
+ id varchar2(50) not null unique,
+ pass varchar2(100) not null,
+ name varchar2(50) not null,
+ tel varchar2(50) not null,
+ mail varchar2(50) not null,
+ post varchar2(6),
+ addr1 varchar2(100),
+ addr2 varchar2(100),
+ mailyn char(1) check(mailyn in('Y','N')),
+ smsyn char(1) check(smsyn in('Y','N')),
+ rdate timestamp
+);

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace : 매퍼의 고유 값 -->
+<mapper namespace="com.myhome.mapper.MyMapper">
+
+	<insert id="insertMyboard">
+		INSERT INTO MYBOARD (	SEQID
+								,TITLE
+								,PASS
+								,WRITER
+								,CONTENT
+								,RDATE
+								,UDATE) 	
+					VALUES(  	 myboard_seq.nextval
+								,#{title}
+								,#{pass}
+								,#{writer}
+								,#{content}
+								,SYSDATE
+								,''  )
+	</insert>
+	
+	<insert id="insertReboard">
+		INSERT INTO REBOARD (    SEQID
+								,CMMT
+								,PASS
+								,WRITER
+								,RDATE
+								,PSEQID
+								,STAR )
+					VALUES( REBOARD_SEQ.NEXTVAL 
+							,#{cmmt}
+							,#{pass}
+							,#{writer}
+							,sysdate
+							,#{pseqid}
+							,#{star} )
+	</insert>
+	
+	<update id="updateMyboard">
+		UPDATE MYBOARD  SET
+							 TITLE = #{title}
+							,WRITER = #{writer}
+							,CONTENT = #{content}
+							,UDATE = sysdate
+			WHERE	
+					SEQID = #{seqid}
+	</update>
+	
+	<update id="updateReboard">
+	        UPDATE	REBOARD  
+	        			 SET
+							 CMMT   = #{cmmt}
+							,WRITER = #{writer}
+							,STAR   = #{star}
+					WHERE
+							 SEQID = #{seqid}
+	</update>
+
+	<update id="updateMyboardHits">
+		UPDATE MYBOARD SET HITS = HITS+1 WHERE SEQID=#{seqid}
+	</update>
+	
+	<update id="updateMyboardContent">
+		UPDATE MYBOARD 
+				SET  TITLE='작성자에 의한 삭제'
+				   , CONTENT=''
+			WHERE 
+				 SEQID=#{seqid}
+	</update>
+	
+	<delete id="deleteMyboard">
+		DELETE FROM MYBOARD WHERE SEQID=#{seqid}
+	</delete>
+	
+	<delete id="deleteReboard">
+		DELETE FROM REBOARD WHERE SEQID=#{seqid}
+	</delete>
+
+	<select id="selectMyboardList" resultType="Map">
+		<![CDATA[
+		SELECT B.* FROM (
+			SELECT ROWNUM RN, A.* FROM (
+				SELECT   SEQID  
+						,TITLE 
+						,PASS
+						,WRITER
+						,CONTENT
+						,TO_CHAR(RDATE,'YYYY-MM-DD') RDATE
+						,TO_CHAR(UDATE,'YYYY-MM-DD') UDATE
+						,HITS
+						,(SELECT COUNT(*) FROM REBOARD
+											     WHERE PSEQID=M.SEQID) RCNT
+				FROM
+						MYBOARD  M
+				ORDER BY
+						SEQID DESC ) A ) B
+		WHERE
+				RN >= #{firstIndex} AND RN <= #{lastIndex}
+		]]>
+	</select>
+	
+	<select id="selectMyboardTotal" resultType="int">
+		SELECT COUNT(*) FROM MYBOARD
+	</select>
+	
+	<select id="selectReboardPassCheck" resultType="int">
+		SELECT COUNT(*) FROM REBOARD
+							   WHERE SEQID=#{seqid} 
+							     AND PASS=#{pass}
+	</select>
+	
+	<select id="selectMyboardDetail" resultType="myboardDto">
+				SELECT   SEQID      
+						,TITLE 
+						,PASS
+						,WRITER
+						,CONTENT
+						,TO_CHAR(RDATE,'YYYY-MM-DD') RDATE
+						,TO_CHAR(UDATE,'YYYY-MM-DD') UDATE
+						,HITS
+						,(SELECT MAX(SEQID) FROM MYBOARD WHERE SEQID <![CDATA[<]]> #{seqid}) BSEQID
+						,(SELECT MIN(SEQID) FROM MYBOARD WHERE SEQID > #{seqid}) NSEQID
+				FROM
+						MYBOARD
+				WHERE
+						SEQID=#{seqid}
+	</select>
+	
+	<select id="selectReboardList" resultType="Map">
+		SELECT  SEQID
+				,CMMT
+				,PASS
+				,WRITER
+				,TO_CHAR(RDATE,'YYYY-MM-DD') RDATE
+				,PSEQID
+				,STAR
+		FROM
+				REBOARD
+		WHERE
+				PSEQID = #{pseqid}
+		ORDER BY 
+				SEQID DESC
+	</select>
+	
+	<select id="selectMyboardPassCnt" resultType="int">
+		SELECT COUNT(*) FROM MYBOARD 
+							 WHERE SEQID=#{seqid} 
+							   AND PASS=#{pass}
+	</select>
+	
+	<select id="selectReboardPseqidCnt" resultType="int">
+		SELECT COUNT(*) FROM REBOARD 
+								WHERE PSEQID=#{seqid}
+	</select>
+	
+
+</mapper>
+
+
+
+
+

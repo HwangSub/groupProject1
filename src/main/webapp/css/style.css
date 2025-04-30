@@ -1,0 +1,48 @@
+ body {
+ 	font-size:12px;
+ 	color:#333;
+ }
+ .table1 {
+ 	width:600px;
+ 	border-collapse:collapse;
+ }
+ .table1 th,td {
+ 	border:1px solid #ccc;
+ 	padding:3px;
+ 	font-size:12px;
+ 	color:#333;
+ 	text-align:center;
+ }
+ .div_button_area {
+ 	width:600px;
+ 	text-align:center;
+ 	margin-top:10px;
+ }
+ .input1 {
+ 	width:96%;
+ 	font-size:12px;
+ 	padding:3px;
+ }
+ .textarea1 {
+  	width:96%;
+  	height:100px;
+ 	font-size:12px;
+ 	padding:3px;
+ }
+ .div_title {
+ 	width:600px;
+ 	font-size:20px;
+ 	font-weight:bold;
+ 	text-align:center;
+ 	margin-bottom:10px;
+ }
+ .div_button_area {
+ 	width:600px;
+ 	text-align:center;
+ 	margin-top:20px;
+ }
+ 
+ 
+ 
+ 
+ 

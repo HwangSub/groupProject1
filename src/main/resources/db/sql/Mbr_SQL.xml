@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myhome.mapper.MbrMapper">
+
+	<insert id="insertMbr">
+			insert into mbr( USERID
+							,PASS
+							,NAME
+							,PHONE
+							,GENDER
+							,ADDR
+							,RDATE )
+					values 
+					       ( '${userid}'
+							,'${pass}'
+							,'${name}'
+							,'${phone}'
+							,'${gender}'
+							,'${addr}'
+							,sysdate )
+	</insert>
+	
+	<update id="updateMbr">
+		  UPDATE MBR SET 
+					 NAME    = #{name}
+					,PHONE   = #{phone}
+					,GENDER  = #{gender}
+					,ADDR    = #{addr}
+			WHERE
+					USERID = #{userid}
+	</update>
+	
+	
+	<select id="selectMbrList" resultType="Map">
+	
+		SELECT   USERID
+				,PASS
+				,NAME
+				,PHONE
+				,decode(GENDER,'M','남','F','여','설정안됨') GENDER
+				,ADDR
+				,RDATE
+		 FROM
+		 		MBR
+	</select>
+	
+	<select id="selectMbrTotal" resultType="int">
+		select count(*) from mbr
+	</select>
+	
+	<select id="selectMbrDetail" resultType="com.myhome.dto.MbrDto">
+		SELECT   USERID
+				,PASS
+				,NAME
+				,PHONE
+				,decode(GENDER,'M','남','F','여','설정안됨') GENDER
+				,ADDR
+				,to_char(RDATE,'yyyy-mm-dd') RDATE
+		 FROM
+		 		MBR
+		 WHERE
+		 		USERID = #{userid}
+	</select>
+	
+	<delete id="deleteMbr">
+		DELETE FROM MBR WHERE USERID = #{userid}
+	</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace : 매퍼의 고유값 -->
+<mapper namespace="com.myhome.mapper.DataMapper">
+
+	<insert id="insertDataboard">
+	
+		INSERT INTO DATABOARD (  SEQID
+								,TITLE
+								,PASS
+								,WRITER
+								,CONTENT
+								,HITS
+								,RDATE
+								,UDATE
+								,FILEPATH
+								,FILENAME
+								,FILESIZE)
+								
+				VALUES (	 databoard_seq.nextval
+							,#{title}
+							,#{pass}
+							,#{writer}
+							,#{content}
+							,'0'
+							,sysdate
+							,''
+							,#{filepath}
+							,#{filename}
+							,#{filesize}  )
+	</insert>
+	
+	<update id="updateDataboardHits">
+		UPDATE DATABOARD SET HITS=HITS+1 WHERE SEQID=#{seqid}
+	</update>
+	
+	<select id="selectDataboardDetail" resultType="dataDto">
+		<![CDATA[
+				SELECT   SEQID  
+						,TITLE 
+						,PASS
+						,WRITER
+						,CONTENT
+						,TO_CHAR(RDATE,'YYYY-MM-DD') RDATE
+						,TO_CHAR(UDATE,'YYYY-MM-DD') UDATE
+						,HITS
+						,FILENAME
+						,(SELECT MAX(SEQID) FROM DATABOARD WHERE SEQID < #{seqid}) BSEQID
+						,(SELECT MIN(SEQID) FROM DATABOARD WHERE SEQID > #{seqid}) NSEQID
+				
+				FROM
+						DATABOARD
+				WHERE
+						SEQID=#{seqid}
+			]]>
+	</select>
+
+	<select id="selectDataboardList" resultType="Map">
+		<![CDATA[
+		SELECT B.* FROM (
+			SELECT ROWNUM RN, A.* FROM (
+				SELECT   SEQID  
+						,TITLE 
+						,PASS
+						,WRITER
+						,CONTENT
+						,TO_CHAR(RDATE,'YYYY-MM-DD') RDATE
+						,TO_CHAR(UDATE,'YYYY-MM-DD') UDATE
+						,HITS
+						,FILENAME
+				FROM
+						DATABOARD  M
+				ORDER BY
+						SEQID DESC ) A ) B
+		WHERE
+				RN >= #{firstIndex} AND RN <= #{lastIndex}
+		]]>
+	</select>
+	
+	<select id="selectDataboardTotal" resultType="int">
+		SELECT COUNT(*) FROM DATABOARD
+	</select>
+
+</mapper>
+

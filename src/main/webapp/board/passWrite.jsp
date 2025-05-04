@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>암호 등록 화면</title>
+	<title>암호 등록 화면 입니다.</title>
 	<link rel="stylesheet" href="../css/style.css" />
 	<link rel="stylesheet" href="../css/jquery-ui.css">
   	<script src="../js/jquery-3.7.1.js"></script>
@@ -57,7 +57,7 @@
 
 <body>
  <div class="div_title">
-    암호 입력 화면
+    암호 입력 화면 입니다.
  </div>
  
 <form id="frm" >

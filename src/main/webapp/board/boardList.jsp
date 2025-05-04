@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>게시판 목록화면</title>
+	<title>게시판 목록화면 1001</title>
 </head>
 <body>
 

@@ -57,7 +57,7 @@ $(function(){
 
 <body>
  <div class="div_title">
-    자료 게시판 상세화면
+    자료 게시판 상세화면 222
  </div>
  
 <form id="frm" >
@@ -68,7 +68,7 @@ $(function(){
 		<col width="*" />
 	</colgroup>
 	<tr>
-		<th><label for="title">제목</label></th>
+		<th><label for="title">제목222</label></th>
 		<td>${dto.title }</td>
 	</tr>
 	<tr>

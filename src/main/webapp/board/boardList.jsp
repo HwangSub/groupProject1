@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>게시판 목록화면 1004</title>
+	<title>게시판 목록화면 1005</title>
 </head>
 <body>
 
@@ -23,8 +23,8 @@
     		<col width="20%"/>
     	</colgroup>
     	<tr>
-    		<th>번호4</th>
-    		<th>제목4</th>
+    		<th>번호5</th>
+    		<th>제목5</th>
     		<th>글쓴이</th>
     		<th>조회수</th>
     		<th>등록일</th>

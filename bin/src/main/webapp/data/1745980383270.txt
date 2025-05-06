@@ -1,0 +1,65 @@
+1. 구이름별 출력 
+ select b.* from (
+   select rownum rn, a.* from ( 
+     select * from popseoul
+         order by s1 asc) a ) b
+-------------------------------------
+2. 인구수별 역순 정렬
+    select b.* from (
+	  select rownum rn, a.* from (
+		  select * from popseoul
+		  order by (s2+s3) desc) a ) b;
+-------------------------------------
+
+{ 테이블 카피 }
+
+(1) create table dept2 as select * from dept;
+(2) create table dept3 as select * from dept 
+                           where deptno in (10,20);
+
+(3) create table pop1 as  select b.* from (
+							select rownum rn, a.* from (
+							   select * from popseoul
+								 order by (s2+s3) desc) a ) b;
+(4) select * from pop1
+		where rn >= 6 and rn <= 10;
+		
+
+~~~~~~~~~~ { 뷰 } ~~~~~~~~~~~
+
+view : 가상테이블(물리적용량 0,본 테이블의 영향을 받는다.)
+
+create view pop11  as	select b.* from (
+							select rownum rn, a.* from (
+								select * from popseoul
+								 order by (s2+s3) desc) a ) b;
+select * from pop11
+	where rn >= 6 and rn <= 10;
+	
+	
+=============================================
+
+create table post1 (
+ p1 varchar2(6),
+ p2 varchar2(50),
+ p3 varchar2(50),
+ p4 varchar2(50),
+ p5 varchar2(50),
+ p6 varchar2(50),
+ p7 varchar2(50),
+ p8 varchar2(100)
+);
+
+comment on table post1 is '구우편번호와 주소 테이블';
+comment on column post1.p1 is '우편번호';
+comment on column post1.p2 is '시도';
+comment on column post1.p3 is '시군구';
+comment on column post1.p4 is '읍면동';
+comment on column post1.p5 is '리';
+comment on column post1.p6 is '도서';
+comment on column post1.p7 is '번지';
+comment on column post1.p8 is '기타(건물명)';
+
+
+
+

@@ -1,0 +1,138 @@
+1. localhost:9080/egovSampleList.do
+2. dispatcher-servlet.xml
+3. 파일정리
+  (1) index.html -> /main/main.jsp
+  (2) sub_1.html -> /intro/sub1.jsp
+  (3) sub_2.html -> /product/goodsList.jsp
+  (4) sub_3.html -> /intro/sub2.jsp
+  (5) sub_4.html -> /board/boardList.jsp
+  (6) sub_4-1.html->/board/boardDetail.jsp
+  (7) sub_5.html -> /intro/sub3.jsp
+
+4. 새로운 패키지 생성  
+  (1) donghwa.web
+      DonghwaController.java
+  (2) donghwa.service
+	  DonghwaService.java (interface)
+	  DonghwaServiceImpl.java
+	  DonghwaVO.java 
+  (3) donghwa.mapper
+      DonghwaMapper.java (interface)
+
+5. 패키지 등록
+  (1) dispatcher-servlet.xml
+  (2) context-common.xml
+
+6. include 작업
+  (1) sitemap.jsp
+  (2) mobilemenu.jsp
+  (3) header.jsp
+  (4) footer.jsp
+ 
+7. 데이터베이스 연결 설정
+  (1) pom.xml  (드라이버설정)
+     - dependency 2개 추가 -
+  (2) context-datasource.xml (접속정보설정)
+  (3) EgovSample_Sample_SQL.xml (SQL 주석처리)
+     - 73번 라인을 주석처리한다.
+     - sample에서 사용하는 SQL로 mysql 형식의 SQL이고
+       오라클에서 사용하지 않는 SQL명령라인을 주석처리함
+  
+8. /boardList.do 
+   /boardDetail.do
+   
+  (1) BoardVO.java
+  (2) BoardService.java
+  (3) BoardServiceImpl.java
+  (4) BoardMapper.java
+  (5) BoardSQL.xml
+  (6) BoardController.java
+  
+9. Mapper 경로설정
+  (1) context-mapper.xml 에서 맨아래 부분
+      <property name="basePackage" value="donghwa.mapper" />
+      우리가 사용하는 경로로 바꾼다.
+  
+============================================
+
+[관리자모드]
+
+1.로그인
+2.관리자등록 > 아이디/암호/이름/생일/레벨(1,2,3)
+3.관리자목록
+4.관리자수정
+5.관리자삭제
+
+6.제품등록
+7.제품목록
+8.제품수정
+9.제품삭제
+
+10.공지등록
+11.공지목록
+12.공지수정
+13.공지삭제
+
+14.설문등록
+15.설문목록
+16.설문수정
+17.설문삭제
+
+=================
+
+{ 프로그램 목록 }
+1. 관리자인증화면  /admLogin.do
+2. 관리자세션처리  /admSession.do
+3. 관리자등록화면  /admWrite.do 
+   아이디중복체크  /admUseridCheck.do
+4. 관리자등록처리  /admInsert.do
+5. 관리자목록화면  /admList.do         :: admList.jsp
+
+6. 관리자수정화면  /admModify.do
+7. 관리자수정처리  /admUpdate.do
+8. 관리자삭제처리  /admDelete.do
+
+9. 공시목록화면    /admBoardList.do    :: admBoardList.jsp
+10.공시등록화면    /admBoardWrite.do   :: admBoardWrite.jsp
+11.공시등록처리    /admBoardSave.do
+12.공시수정화면    /admBoardModify.do  :: admBoardModify.jsp
+13.공시수정처리    /admBoardUpdate.do
+14.공시삭제처리    /admBoardDelete.do
+
+-------------------------------------
+{ 게시판(관리자) 자바파일 목록 }
+1. BoardVO.java
+
+2. BoardService.java     (명세) - Impl
+3. BoardServiceImpl.java (완성)
+4. BoardMapper.java      (명세) - SQL
+
+5. AdminBoardController.java
+6. BoardSQL.xml
+-------------------------------------
+{ 환경설정 파일 }
+1. pom.xml :: 연결드라이버 설정 파일
+2. context-datasource.xml :: (1)오라클 접속정보 설정 파일
+3. dispatcher-servlet.xml :: (1)JSP작업 경로 설정
+                             (2)새로운 패키지 등록 설정
+4. context-common.xml	  :: (1)새로운 패키지 등록 설정
+5. content-mapper.xml     :: (1)새로운 매퍼파일의 패키지를 등록 설정
+-------------------------------------
+create table adminfo ( 
+userid varchar2(50)  not null primary key,
+userpass varchar2(100) not null, 
+username varchar2(50)  not null, 
+birth date, grade 
+number(2) default '2',  -- 관리자 레벨 (1,2,3)등급 
+state number(2) default '1',  -- 정상(1),퇴사(2) 
+rdate timestamp ); 
+------------------------------------- 
+{ 파일목록 }
+
+1. AdminfoVO.java
+2. AdminfoService.java (interface)
+    - int insertAdminfo(AdminfoVO vo) throws Exception;
+3. AdminfoServiceImpl.java
+4. AdminfoMapper.java  (interface)
+5. AdminfoController.java
+6. AdminfoSQL.xml

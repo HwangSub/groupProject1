@@ -1,0 +1,27 @@
+(풀어보기5)
+
+## 코드번호 일괄 입력처리
+  ** goods1 ->  code/name -> c1  ~ c10
+  (처리)
+    (1) "goods1"테이블의 존재여부
+	(2) 비존재시 생성
+	(3) 반복문을 이용한 데이터 입력
+declare
+	v_cnt1 number;
+	v_number number := 1; 
+begin
+	select count(*) into v_cnt1 from all_tables where table_name='GOODS7';
+	
+	if v_cnt1 = 0 then 
+		execute immediate 
+		     'create table goods7( code varchar2(10), name varchar2(10) )';  
+	end if;
+	--loop 
+	--	insert into goods7(code) values('c'||v_number);
+	--	v_number := v_number+1;
+	--	exit when v_number > 10;
+	--end loop;
+	
+	--dbms_output.put_line('저장완료!!');
+end;
+/

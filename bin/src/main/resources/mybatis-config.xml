@@ -1,0 +1,7 @@
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.myhome.dto.NboardDto"  alias="nboardDto" />
+		<typeAlias type="com.myhome.dto.MyboardDto" alias="myboardDto" />
+		<typeAlias type="com.myhome.dto.DataDto" alias="dataDto" />
+	</typeAliases>
+</configuration>
